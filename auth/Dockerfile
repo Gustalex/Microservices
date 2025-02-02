@@ -9,10 +9,13 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
+# Cria o diretorio para o sqlite3
+RUN mkdir -p /app/data
+
 # Dependencias
 
 COPY requirements.txt .
-RUN pip install __nocache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # copiar arquivos
 COPY . .
