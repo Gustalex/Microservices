@@ -1,0 +1,11 @@
+services:
+  auth_service:
+    build: ./auth
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./auth:/app 
+      - auth_db:/app/data 
+
+volumes:
+  auth_db:
