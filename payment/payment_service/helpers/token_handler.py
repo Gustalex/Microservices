@@ -11,8 +11,5 @@ def get_token():
         "password": SERVICE_PASSWORD
     }
     response = requests.post(AUTH_SERVICE_URL, json=data)
-
-    if response.status_code == 200:
-        return response.json()['access']
-    else:
-        return None
+    response.raise_for_status()
+    return response.json()['access']
