@@ -40,7 +40,7 @@ def make_payment_request(product_id, product_name, product_quantity, product_pri
     headers = {
         "accept": "application/json",
         "content-type": "application/json",
-        "authorization" : "Bearer abc_dev_6631Q2zLsMf3pg1jeGf3U2Aj"
+        "authorization" : "Bearer " + settings.PAYMENT_BEARER_TOKEN
     }
 
     response = requests.post(url, json=payload, headers=headers)

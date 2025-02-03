@@ -128,3 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom settings 
 
 AUTH_SERVICE_BASE_URL = config('AUTH_SERVICE_BASE_URL')
+PAYMENT_BEARER_TOKEN=config('PAYMENT_BEARER_TOKEN')
