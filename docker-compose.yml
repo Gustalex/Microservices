@@ -6,6 +6,14 @@ services:
     volumes:
       - ./auth:/app 
       - auth_db:/app/data 
+  payment_service:
+    build: ./payment
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./payment:/app 
+      - payment_db:/app/data
 
 volumes:
   auth_db:
+  payment_db:
