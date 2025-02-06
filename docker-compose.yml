@@ -1,19 +1,32 @@
+version: '3.8'
+
 services:
   auth_service:
     build: ./auth
+    container_name: auth-service
     ports:
       - "8000:8000"
     volumes:
-      - ./auth:/app 
-      - auth_db:/app/data 
+      - ./auth:/app
+      - auth_db:/app/data
+    networks:
+      - my_network
+
   payment_service:
     build: ./payment
+    container_name: payment-service
     ports:
       - "8001:8001"
     volumes:
-      - ./payment:/app 
+      - ./payment:/app
       - payment_db:/app/data
+    networks:
+      - my_network
 
 volumes:
   auth_db:
   payment_db:
+
+networks:
+  my_network:
+    driver: bridge
