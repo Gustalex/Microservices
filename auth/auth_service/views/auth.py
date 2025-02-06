@@ -8,12 +8,23 @@ from ..models import User
 from ..serializers import UserSerializer, LoginSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from ..utils import create_user_in_payment_service
+from rest_framework.exceptions import APIException
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
+    def perform_create(self, serializer):
+        user = serializer.save()
+        status_code = create_user_in_payment_service(user)
+        if status_code != status.HTTP_201_CREATED:
+            user.delete()
+            raise APIException(
+                detail="Falha ao sincronizar usuário com o serviço de pagamento. Tente novamente mais tarde.",
+                code=status.HTTP_503_SERVICE_UNAVAILABLE
+            )
+        
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
